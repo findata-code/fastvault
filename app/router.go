@@ -6,6 +6,14 @@ type Router struct {
 	route map[string]map[string]func(ctx *fasthttp.RequestCtx)
 }
 
+func (rt *Router) GetModule() func(ctx *fasthttp.RequestCtx) {
+	return func(ctx *fasthttp.RequestCtx) {
+		path := ctx.Request.URI().Path()
+		method := ctx.Request.Header.Method()
+		rt.route[string(method)][string(path)](ctx)
+	}
+}
+
 func NewRouter() *Router {
 	route := make(map[string]map[string]func(ctx *fasthttp.RequestCtx))
 	return &Router{

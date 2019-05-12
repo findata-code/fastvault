@@ -6,6 +6,10 @@ github.com/klauspost/cpuid v0.0.0-20180405133222-e7e905edc00e h1:+lIPJOWl+jSiJOc
 github.com/klauspost/cpuid v0.0.0-20180405133222-e7e905edc00e/go.mod h1:Pj4uuM528wm8OyEC2QMXAi2YiTZ96dNQPGgoMS4s3ek=
 github.com/klauspost/cpuid v1.2.0 h1:NMpwD2G9JSFOE1/TJjGSo5zG7Yb2bTe7eq1jH+irmeE=
 github.com/klauspost/cpuid v1.2.0/go.mod h1:Pj4uuM528wm8OyEC2QMXAi2YiTZ96dNQPGgoMS4s3ek=
+github.com/tspn/whenThis v0.0.0-20190512111024-db43c0c07a65 h1:tB7XClcavfVCza003t4owuyARc3WmuVKIDiHYOJHOCc=
+github.com/tspn/whenThis v0.0.0-20190512111024-db43c0c07a65/go.mod h1:NReiRkNBt2ItOBwti6B5csixIDKTp3gVIIfoUWPnC/4=
+github.com/tspn/whenThis v0.0.0-20190512112323-511972d9af84 h1:S0jVuXvFu7U9Xx+UZqanYy5eQYBUGNQrfwf9SjsdkIw=
+github.com/tspn/whenThis v0.0.0-20190512112323-511972d9af84/go.mod h1:NReiRkNBt2ItOBwti6B5csixIDKTp3gVIIfoUWPnC/4=
 github.com/valyala/bytebufferpool v1.0.0 h1:GqA5TC/0021Y/b9FG4Oi9Mr3q7XYx6KllzawFIhcdPw=
 github.com/valyala/bytebufferpool v1.0.0/go.mod h1:6bBcMArwyJ5K/AmCkWv1jt77kVWyCJ6HpOuEn7z0Csc=
 github.com/valyala/fasthttp v1.2.0 h1:dzZJf2IuMiclVjdw0kkT+f9u4YdrapbNyGAN47E/qnk=

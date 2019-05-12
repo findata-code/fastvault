@@ -1,20 +1,30 @@
 package app
 
 import (
+	"fastvault/app/controllers/secret"
+	"github.com/tspn/whenThis"
 	"github.com/valyala/fasthttp"
+	"log"
 )
 
+const (
+	ENV_CONFIG_LOCATION = "CONFIG"
+)
 
 func Start() {
+	InitialConfig()
 
-}
+	router := NewRouter()
 
-func NewPipeline(router Router) func (ctx *fasthttp.RequestCtx) {
+	//Register Path
+	router.LinkFunc("POST", "/secret", secret.Post)
 
-	//router := NewRouter()
-	//router.Link("POST", "/secret", secret.Get)
-	return func(ctx *fasthttp.RequestCtx){
-		//router.Get(ctx.Request)
-		ctx.Request.URI().Path()
-	}
+	//start fasthttp application
+	port := whenThis.
+		IsEmptyString(Config.Port).
+		UseThisString(":8080")
+	log.Println("server start @ port", port)
+	fasthttp.ListenAndServe(
+		port,
+		router.GetModule())
 }
