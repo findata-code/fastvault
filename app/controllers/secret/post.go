@@ -6,5 +6,5 @@ import "github.com/valyala/fasthttp"
 	POST /secret
 */
 func Post (ctx *fasthttp.RequestCtx) {
-
+	ctx.Write([]byte("Hello"))
 }
