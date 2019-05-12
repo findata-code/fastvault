@@ -1,8 +1,8 @@
 package app
 
 import (
+	"fmt"
 	"github.com/valyala/fasthttp"
-	"reflect"
 	"testing"
 )
 
@@ -18,14 +18,14 @@ func TestRouter_GetShouldReturnNilIfTryGetUnlinkMethodOrPath(t *testing.T) {
 	}
 }
 
-func TestRouter_GetShouldReturnCorrectHandler(t *testing.T) {
+func TestRouter_GetShouldReturnCorrectFunc(t *testing.T) {
 	router := NewRouter()
 
 	handler := TestHandler{}
-	router.Link("POST", "/test", handler)
+	router.LinkHandler("POST", "/test", handler)
 
-	if !reflect.DeepEqual(handler, router.Get("POST", "/test")) {
-		t.Error("router should return handler")
+	if router.Get("POST", "/test") == nil {
+		t.Error("router should not return nil")
 	}
 }
 
@@ -33,9 +33,26 @@ func TestRouter_LinkShouldBindMethodAndPathWithHandler(t *testing.T) {
 	router := NewRouter()
 
 	handler := TestHandler{}
-	router.Link("POST", "/test", handler)
+	router.LinkHandler("POST", "/test", handler)
 
-	if !reflect.DeepEqual(handler, router.route["POST"]["/test"]) {
-		t.Error("router cannot link handler")
+	if router.route["POST"]["/test"] == nil {
+		t.Error("router should bind method, path with handler")
+	}
+}
+
+func TestRouter_LinkShouldBindMethodAndPathWithFunc(t *testing.T){
+	router := NewRouter()
+
+	f := func(ctx *fasthttp.RequestCtx){}
+	router.LinkFunc("POST", "/test", f)
+	if (router.route["POST"]["/test"]) == nil {
+		t.Error("router should bind method, path with func")
+	}
+}
+
+func TestDeepEqualFunc(t *testing.T){
+	f := func(ctx *fasthttp.RequestCtx){}
+	if fmt.Sprintf("%v", &f) != fmt.Sprintf("%v", &f) {
+		t.Error("cannot use reflect.DeepEqual to compare between function")
 	}
 }
