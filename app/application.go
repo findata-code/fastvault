@@ -19,6 +19,7 @@ func Start() {
 	router := NewRouter()
 
 	//Register Path
+	router.LinkFunc("GET", "/secret", secret.Get)
 	router.LinkFunc("POST", "/secret", secret.Post)
 
 	//start fasthttp application

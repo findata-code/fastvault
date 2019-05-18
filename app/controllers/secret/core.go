@@ -3,6 +3,8 @@ package secret
 import (
 	"fastvault/app/configurations"
 	"fastvault/app/services"
+	"fastvault/app/utils"
+	"fmt"
 	"log"
 )
 
@@ -16,4 +18,8 @@ func Initialise() {
 	fileService = services.NewFileService(
 		configurations.Current.SecretStorage,
 		configurations.Current.Key)
+}
+
+func filename(token []byte) string {
+	return fmt.Sprintf("%x", utils.ToSha512([]byte(token)))
 }

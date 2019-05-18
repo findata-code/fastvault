@@ -5,9 +5,12 @@ import (
 	"fmt"
 	"github.com/valyala/fasthttp"
 	"log"
+	"net/http"
 )
 
 func ResponseCreateSecretResponse(ctx *fasthttp.RequestCtx, res SecretCreatedResponse){
+	ctx.SetStatusCode(http.StatusOK)
+
 	jres, err := json.Marshal(res)
 	if err != nil {
 		ResponseFatalError(ctx, err.Error())
@@ -25,6 +28,11 @@ func ResponseApplicationError(ctx *fasthttp.RequestCtx, res ApplicationErrorResp
 	}
 
 	response(ctx, jres)
+}
+
+func ResponseSecretReadResponse(ctx *fasthttp.RequestCtx, response []byte){
+	ctx.SetStatusCode(http.StatusOK)
+	fmt.Fprintf(ctx, "%s", response)
 }
 
 func ResponseFatalError(ctx *fasthttp.RequestCtx, err string){

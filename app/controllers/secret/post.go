@@ -2,9 +2,8 @@ package secret
 
 import (
 	"fastvault/app/controllers"
-	"fastvault/app/utils"
-	"fmt"
 	"github.com/valyala/fasthttp"
+	"net/http"
 )
 
 /*
@@ -15,15 +14,17 @@ func Post(ctx *fasthttp.RequestCtx) {
 	body := ctx.Request.Body()
 	token, err := secretService.CreateSecret(body)
 	if err != nil {
+		ctx.SetStatusCode(http.StatusInternalServerError)
 		controllers.ResponseApplicationError(
 			ctx,
 			controllers.ApplicationErrorResponse{Error: err.Error()})
 		return
 	}
 
-	filename := fmt.Sprintf("%x", utils.ToSha512([]byte(token)))
+	filename := filename([]byte(token))
 	err = fileService.CreateSecretFile(filename, body)
 	if err != nil {
+		ctx.SetStatusCode(http.StatusInternalServerError)
 		controllers.ResponseApplicationError(
 			ctx,
 			controllers.ApplicationErrorResponse{Error: err.Error()})
