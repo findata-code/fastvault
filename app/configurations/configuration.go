@@ -3,23 +3,28 @@ package configurations
 import (
 	"encoding/json"
 	"io/ioutil"
+	"log"
 )
 
 type Configuration struct {
-	Port string
+	Port          string `json:"port"`
+	Key           string `json:"key"`
+	SecretStorage string `json:"secret_storage"`
 }
 
-func Load(filepath string) (Configuration, error) {
+var Current Configuration
+
+func Load(filepath string) error {
+	log.Println("use", filepath)
 	b, err := ioutil.ReadFile(filepath)
 	if err != nil {
-		return Configuration{}, err
+		return err
 	}
 
-	var c Configuration
-	err = json.Unmarshal(b, &c)
+	err = json.Unmarshal(b, &Current)
 	if err != nil {
-		return Configuration{}, err
+		return err
 	}
 
-	return c, nil
+	return nil
 }

@@ -1,6 +1,7 @@
 package app
 
 import (
+	"fastvault/app/configurations"
 	"fastvault/app/controllers/secret"
 	"github.com/tspn/whenThis"
 	"github.com/valyala/fasthttp"
@@ -13,6 +14,7 @@ const (
 
 func Start() {
 	InitialConfig()
+	secret.Initialise()
 
 	router := NewRouter()
 
@@ -21,10 +23,14 @@ func Start() {
 
 	//start fasthttp application
 	port := whenThis.
-		IsEmptyString(Config.Port).
+		IsEmptyString(configurations.Current.Port).
 		UseThisString(":8080")
+
 	log.Println("server start @ port", port)
-	fasthttp.ListenAndServe(
+	err := fasthttp.ListenAndServe(
 		port,
 		router.GetModule())
+	if err != nil {
+		log.Fatal(err)
+	}
 }

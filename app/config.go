@@ -5,17 +5,9 @@ import (
 	"os"
 )
 
-var Config configurations.Configuration
-
 func InitialConfig() {
-	c, err := configurations.Load(os.Getenv("ENV_CONFIG_LOCATION"))
+	err := configurations.Load(os.Getenv("ENV_CONFIG_LOCATION"))
 	if err != nil {
-		c =  DefaultConfig
+		panic(err)
 	}
-
-	Config = c
-}
-
-var DefaultConfig configurations.Configuration = configurations.Configuration{
-	Port: ":8080",
 }
