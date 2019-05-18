@@ -10,10 +10,12 @@ var Config configurations.Configuration
 func InitialConfig() {
 	c, err := configurations.Load(os.Getenv("ENV_CONFIG_LOCATION"))
 	if err != nil {
-		c =  configurations.Configuration {
-			Port: ":8080",
-		}
+		c =  DefaultConfig
 	}
 
 	Config = c
+}
+
+var DefaultConfig configurations.Configuration = configurations.Configuration{
+	Port: ":8080",
 }

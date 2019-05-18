@@ -11,6 +11,9 @@ POST /secret
 ```
 Request Body
 ```
+HEADER:
+- X-Application-Key: []key
+BODY:
 [your data]
 ```
 Response
