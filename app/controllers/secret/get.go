@@ -8,10 +8,14 @@ import (
 
 const (
 	TOKEN_HEADER_KEY = "X-Application-Token"
+	ACCEPT_HEADER_KEY = "Accept"
+	CONTENT_TYPE_HEADER_KEY = "Content-Type"
 )
 
 func Get(ctx *fasthttp.RequestCtx) {
 	token := ctx.Request.Header.Peek(TOKEN_HEADER_KEY)
+	accept := ctx.Request.Header.Peek(ACCEPT_HEADER_KEY)
+
 	if token == nil {
 		ctx.SetStatusCode(http.StatusBadRequest)
 		controllers.ResponseApplicationError(
@@ -30,7 +34,9 @@ func Get(ctx *fasthttp.RequestCtx) {
 		return
 	}
 
+	if accept != nil {
+		ctx.SetContentType(string(accept))
+	}
+
 	controllers.ResponseSecretReadResponse(ctx, content)
 }
-
-//24d648245969af6c97dc5ce5b93c34a39e87e411ab35b50a63258240a7dd35efe85d649819eb3bf54c7d2b9c10344ce6bd21b015106a14cf59ad048e9c67cddc.secret
