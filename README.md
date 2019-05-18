@@ -31,6 +31,6 @@ Header:
 X-Application-Token: [token]
 ```
 Response:
-```json
+```
 [your data]
 ```
