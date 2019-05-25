@@ -17,6 +17,10 @@ RUN apk add --no-cache bash
 WORKDIR /fastvault
 
 COPY --from=builder /builder/fastvault .
+COPY --from=builder /builder/resources/config.production.json .
+
+ENV ENV_CONFIG_LOCATION=/fastvault/config.production.json
+
 EXPOSE 8080
 
-CMD ["sleep", "10000"]
+CMD ["/fastvault/fastvault"]
