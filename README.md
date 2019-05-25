@@ -1,5 +1,18 @@
 # FastVault
 FastHttp Vault via HTTP REST
+### Configuration
+```
+export ENV_CONFIG_LOCATIO=/path/to/your/configuration
+```
+Configuration parameter
+```json
+{
+  "port": ":8080",
+  "key": "0123456789abcdef",
+  "secret_storage": "./data"
+}
+```
+
 
 ### API
 ##### Write to FastVault
